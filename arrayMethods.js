@@ -13,6 +13,9 @@
 // ale będą działać przy pomocy pętli for lub while
 
 function mapFn(array, callback) {
+    if (array === undefined || callback === undefined) {
+        throw new Error("function mapFn need array and callback parameters");
+    }
     var arrayNew = [];
     for (let index = 0; index < array.length; index++) {
         const element = array[index];
@@ -23,6 +26,9 @@ function mapFn(array, callback) {
 }
 
 function filterFn(array, callback) {
+    if (array === undefined || callback === undefined) {
+        throw new Error("function filterFn need array and callback parameters");
+    }
     var arrayNew = [];
     for (let index = 0; index < array.length; index++) {
         const element = array[index];
@@ -35,26 +41,32 @@ function filterFn(array, callback) {
 }
 
 function reduceFn(array, callback, initial) {
-    var value = initial;
-    for (let index = 0; index < array.length; index++) {
-        const element = array[index];
-        value = callback(value, element);
+    if (array === undefined || callback === undefined) {
+        throw new Error("function reduceFn need array and callback parameters");
     }
-
+    var value = initial !== undefined ? initial : array.shift();
+    while (array.length > 0) {
+        value = callback(value, array.shift());
+    }
     return value;
 }
 
 function reduceRightFn(array, callback, initial) {
-    var value = array[array.length - 1];
-    for (let index = array.length - 2; index >= 0; index--) {
-        const element = array[index];
-        value = callback(value, element);
+    if (array === undefined || callback === undefined) {
+        throw new Error("function reduceRightFn need array, callback parameters");
+    }
+    var value = initial === undefined ? array.pop() : initial;
+    while (array.length > 0) {
+        value = callback(value, array.pop());
     }
 
     return value;
 }
 
 function everyFn(array, callback) {
+    if (array === undefined || callback === undefined) {
+        throw new Error("function everyFn need array and callback parameters");
+    }
     var every = true;
     for (let index = 0; index < array.length; index++) {
         const element = array[index];
@@ -68,6 +80,9 @@ function everyFn(array, callback) {
 }
 
 function someFn(array, callback) {
+    if (array === undefined || callback === undefined) {
+        throw new Error("function someFn need array and callback parameters");
+    }
     var finded = false;
     for (let index = 0; index < array.length; index++) {
         const element = array[index];
@@ -81,6 +96,9 @@ function someFn(array, callback) {
 }
 
 function entriesFn(array) {
+    if (array === undefined) {
+        throw new Error("function entriesFn need array and callback parameters");
+    }
     var current = 0;
     var values = [];
     while (current < array.length) {
